@@ -10,13 +10,15 @@ from langchain import hub
 load_dotenv()
 
 
-def lookup(name: str) -> str:
+def linkedin_lookup_agent(name: str) -> str:
     llm = ChatOpenAI(model="gpt-4.1", temperature=0)
 
+    # prompt = ChatPromptTemplate.from_template(
+    #     "{input} has a LinkedIn profile, you need to find it. Only return the URL!")
     prompt = ChatPromptTemplate.from_template(
-        "{input} has a LinkedIn profile, you need to find it. Only return the URL!")
-
-    chain = prompt | llm | StrOutputParser()
+        """Given the information about {input}  I want you to create: 
+        1. A short summary 
+        2. Two interesting facts about them """)
 
     tools_for_agent_serach = [
         Tool(
@@ -26,11 +28,13 @@ def lookup(name: str) -> str:
         )
     ]
 
-    react_prommp = hub.pull("hwchase17/react")
+    # chain = prompt | llm | StrOutputParser()
+
+    react_prompt = hub.pull("hwchase17/react")
     agent = create_react_agent(
         llm=llm,
         tools=tools_for_agent_serach,
-        prompt=react_prommp
+        prompt=react_prompt
     )
     agent_executor = AgentExecutor.from_agent_and_tools(
         agent=agent, tools=tools_for_agent_serach, verbose=True)
@@ -42,5 +46,5 @@ def lookup(name: str) -> str:
 
 
 if __name__ == "__main__":
-    linkedin_url = lookup("Jennifer (Halabi) Cole work in Sendbird ")
+    linkedin_url = linkedin_lookup_agent("David Levy work in IBM")
     print(linkedin_url)

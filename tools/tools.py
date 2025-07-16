@@ -2,10 +2,10 @@
 from langchain_tavily import TavilySearch
 
 
-def get_profile_url_tavily(name: str):
+def get_profile_url_tavily(query: str):
     """
-        Search for a LinkedIn profile URL using Tavily search.
+        Search for anything using Tavily search.
     """
     search = TavilySearch()
-    results = search.run(f"site:linkedin.com/in {name}")
+    results = search.run(f"{query}")
     return results
