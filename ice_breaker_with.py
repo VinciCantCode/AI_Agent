@@ -36,4 +36,4 @@ def ice_breaker_with(name: str):
 
 if __name__ == "__main__":
     load_dotenv()
-    ice_breaker_with("HongQing Lin study in FDU")
+    ice_breaker_with("Mohamad Ali work in IBM")

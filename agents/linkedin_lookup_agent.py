@@ -1,4 +1,7 @@
 from dotenv import load_dotenv
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from tools.tools import get_profile_url_tavily
 from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
@@ -46,5 +49,5 @@ def linkedin_lookup_agent(name: str) -> str:
 
 
 if __name__ == "__main__":
-    linkedin_url = linkedin_lookup_agent("David Levy work in IBM")
+    linkedin_url = linkedin_lookup_agent("Mohamad Ali")
     print(linkedin_url)
